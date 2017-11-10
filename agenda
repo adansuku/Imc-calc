@@ -1,0 +1,27 @@
+create database agenda;
+
+create table usuarios (
+  id SERIAL,
+  alias varchar(50) UNIQUE,
+  apellidos varchar(200),
+  dni varchar (20),
+  notas varchar (300),
+  primary key(alias)
+);
+
+CREATE TYPE contactos AS ENUM ('telefono_casa', 'telefono_trabajo', 
+	'telefono_movil', 'telefono_otro','domicilio_casa', 'domicilio_trabajo','domicilio_otro');
+
+CREATE TABLE datos (
+  id_datos varchar(50),
+  contacto contactos,
+  tipo_dato varchar(20),
+  primary key(id_datos)
+);
+
+alter table datos add foreign key (id_datos) references usuarios(alias);
+
+INSERT INTO usuarios (alias, apellidos, dni, notas) values ('7zui','Gonzalez','78633240E','Bases de datos');
+INSERT INTO datos (id_datos, contacto,tipo_dato) values ('7zui','telefono_casa','8347563478');
+
+SELECT * from usuarios JOIN datos on alias='7zui';
